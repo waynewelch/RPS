@@ -1,0 +1,135 @@
+<h3 class="panel-heading">Create New Policy</h3>
+
+<form #myForm="ngForm" (ngSubmit)="register(myForm)">
+  <div class="container-fluid">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <p class="control-label glyphicon-asterisk">All fields are required</p>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label class="control-label">Policy Number:</label>
+        <input class="form-control" type="text" name="PolicyNumber" #PolicyNumber="ngModel" ngModel required size="9" min="1" maxlength="9">
+      </div>
+    </div>
+
+    <!-- Policy Effective Dates Group -->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="control-label">Policy Effective Date:</label>
+        <input class="form-control" type="date" name="PolicyEffectiveDate" #PolicyEffectiveDate="ngModel" ngModel required>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="control-label">Policy Expiration Date</label>
+        <input class="form-control" type="date" name="PolicyExpirationDate" #PolicyExpirationDate="ngModel" ngModel required>
+      </div>
+    </div>
+    <!-- END: Policy Effective Dates Group -->
+
+    <div class="form-row" style="height: 30px; width: 100%; clear: both;">&nbsp;</div>
+
+    <!-- Primary Insured Contact Group -->
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <h4 class="control-label">Primary insured contact details</h4>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label class="control-label">Name: (Last, First) </label>
+        <input class="form-control" type="text" name="PrimaryInsuredName" #PrimaryInsuredName="ngModel" ngModel required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label class="control-label">Primary Mailing Address</label>
+        <input class="form-control" type="text" name="PrimaryInsuredMailingAddress" #PrimaryInsuredMailingAddress="ngModel" ngModel required>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="control-label">City</label>
+        <input class="form-control" type="text" name="PrimaryInusredCity" #PrimaryInusredCity="ngModel" ngModel required>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="control-label">State</label>
+        <input class="form-control" type="text" name="PrimaryInsuredState" #PrimaryInsuredState="ngModel" ngModel required>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="control-label">Zip Code</label>
+        <input class="form-control" type="text" name="PrimaryInsuredZipCode" #PrimaryInsuredZipCode="ngModel" ngModel required>
+      </div>
+    </div>
+    <!-- END: Primary Insured Contact Group -->
+
+    <div class="form-row" style="height: 30px; width: 100%; clear: both;">&nbsp;</div>
+
+    <!-- Risk Asset Group -->
+    <div class="form-spacer" style="height: 30px; width: 100%">
+      <div class="form-group col-md-12">
+        <h4 class="control-label">Risk details</h4>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="control-label">Construction Type</label>
+        <select class="form-control" #RiskConstruction (change)="setNewValue(RiskConstruction.value)" ngModel name="RiskConstruction" required>
+          <option *ngFor="let type of types" [value]="type.id">
+            {{type.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="control-label">Year Built</label>
+        <input class="form-control" type="text" name="RiskYearBuilt" #RiskYearBuilt="ngModel" ngModel required>
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label class="control-label">Physical Address</label>
+        <input class="form-control" type="text" name="RiskAddress" #RiskAddress="ngModel" ngModel required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="control-label">City</label>
+        <input id="validationDefault01" class="form-control" type="text" name="RiskCity" #RiskCity="ngModel" ngModel required>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label class="control-label">State</label>
+        <input class="form-control" type="text" name="RiskState" #RiskState="ngModel" ngModel required>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="control-label">Zip Code</label>
+        <input class="form-control" type="text" name="RiskZipCode" #RiskZipCode="ngModel" ngModel required>
+      </div>
+    </div>
+    <!-- END: Risk Asset Group -->
+
+
+    <div class="row">
+      <div class="col-sm-offset-5 col-sm-2 text-center">
+        <div class="btn-group">
+          <button class="btn btn-primary center-block" type="submit">Create</button>
+          <button class="btn btn-default center-block" type="reset">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-row" style="height: 30px; width: 100%; clear: both;">&nbsp;</div>
+  </div>
+</form>
+

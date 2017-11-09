@@ -1,0 +1,24 @@
+<h1>Policy Overview</h1>
+
+<p>All policies currently in the database.</p>
+
+<p *ngIf="!policies"><em>Loading...</em></p>
+
+  <table class='table table-striped' *ngIf="policies">
+    <thead>
+      <tr>
+        <th>Policy Number</th>
+        <th>Insured Name</th>
+        <th>Effective Date</th>
+        <th>Expiration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let policy of policies">
+        <td>{{ policy.policyNumber }}</td>
+        <td>{{ policy.primaryInsuredName }}</td>
+        <td>{{ policy.policyEffectiveDate | date : format : longDate }}</td>
+        <td>{{ policy.policyExpirationDate | date : format : longDate }}</td>
+      </tr>
+    </tbody>
+  </table>
