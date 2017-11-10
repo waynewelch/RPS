@@ -55,18 +55,32 @@ export class WriteDataComponent {
 
 
   register(myForm: NgForm) {
+    console.log("checking model state");
     if (myForm.valid) {
       let response: JSON;
       this.http.post(this._baseUrl + 'api/Policy', this.preparePostData(myForm.value)).subscribe(result => {
-        response = result.json();
-        if ((<any>result)._body.value != null) {
-          alert("Something went completely sideways! " + (<any>result)._body.value);
-        }
+          response = result.json();
+          if ((<any>result)._body.value != null) {
+            alert("Something went completely sideways! " + (<any>result)._body.value);
+          }
           this.registrationCallback(result.status, result.statusText);
           console.log("Response: " + JSON.stringify(response));
         },
         error => console.error(error));
-    } 
+    } else {
+        alert("All fields are required");
+    }
+  }
+
+  // Restrict entry to numbers on fields with attribute applied
+  _keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
 }

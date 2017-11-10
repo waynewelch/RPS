@@ -11,7 +11,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label class="control-label">Policy Number:</label>
-        <input class="form-control" type="text" name="PolicyNumber" #PolicyNumber="ngModel" ngModel required size="9" min="1" maxlength="9">
+        <input class="form-control" type="text" (keypress)="_keyPress($event)" name="PolicyNumber" #PolicyNumber="ngModel" ngModel required size="9" min="1" maxlength="9">
       </div>
     </div>
 
@@ -19,11 +19,11 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label class="control-label">Policy Effective Date:</label>
-        <input class="form-control" type="date" name="PolicyEffectiveDate" #PolicyEffectiveDate="ngModel" ngModel required>
+        <input class="form-control" type="date" name="PolicyEffectiveDate" (keypress)="_keyPress($event)" #PolicyEffectiveDate="ngModel" ngModel required>
       </div>
       <div class="form-group col-md-6">
         <label class="control-label">Policy Expiration Date</label>
-        <input class="form-control" type="date" name="PolicyExpirationDate" #PolicyExpirationDate="ngModel" ngModel required>
+        <input class="form-control" type="date" name="PolicyExpirationDate" (keypress)="_keyPress($event)" #PolicyExpirationDate="ngModel" ngModel required>
       </div>
     </div>
     <!-- END: Policy Effective Dates Group -->
@@ -64,7 +64,7 @@
 
       <div class="form-group col-md-2">
         <label class="control-label">Zip Code</label>
-        <input class="form-control" type="text" name="PrimaryInsuredZipCode" #PrimaryInsuredZipCode="ngModel" ngModel required>
+        <input class="form-control" type="text" name="PrimaryInsuredZipCode" (keypress)="_keyPress($event)" #PrimaryInsuredZipCode="ngModel" ngModel required size="5" min="5" maxlength="5">
       </div>
     </div>
     <!-- END: Primary Insured Contact Group -->
@@ -90,7 +90,7 @@
 
       <div class="form-group col-md-6">
         <label class="control-label">Year Built</label>
-        <input class="form-control" type="text" name="RiskYearBuilt" #RiskYearBuilt="ngModel" ngModel required>
+        <input class="form-control" type="text" name="RiskYearBuilt" (keypress)="_keyPress($event)" #RiskYearBuilt="ngModel" ngModel required size="4" min="4" maxlength="4">
       </div>
     </div>
 
@@ -115,7 +115,8 @@
 
       <div class="form-group col-md-2">
         <label class="control-label">Zip Code</label>
-        <input class="form-control" type="text" name="RiskZipCode" #RiskZipCode="ngModel" ngModel required>
+        <input ngClass="form-control" type="text" name="RiskZipCode" (keypress)="_keyPress($event)" #RiskZipCode="ngModel" ngModel required size="5" min="5" maxlength="5">
+        <div *ngIf="RiskZipCode.touched && !RiskZipCode.valid">{{RiskZipCode.errors.required}}</div>
       </div>
     </div>
     <!-- END: Risk Asset Group -->
