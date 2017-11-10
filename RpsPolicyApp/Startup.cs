@@ -26,7 +26,7 @@ namespace RpsPolicyApp
     /// <param name="services"><see cref="IServiceCollection"/></param>
     public void ConfigureServices(IServiceCollection services)
     {
-      const string connection = @"Server=(localdb)\mssqllocaldb;Database=RpsPolicyDb;Trusted_Connection=True;";
+      const string connection = @"Server=tcp:rpspolicyappdbserver.database.windows.net,1433;Initial Catalog=RpsPolicyApp_db;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
       services.AddDbContext<PolicyDbContext>(options => options.UseSqlServer(connection));
       services.AddTransient<IPolicy, Policy>();
       services.AddTransient<IPolicyService, PolicyService>();
