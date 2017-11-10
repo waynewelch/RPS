@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using RpsPolicyApp.DbContext;
 
 namespace RpsPolicyApp.Models
 {
-  public class Policy
+  public class Policy : IPolicy
   {
+    #region Properties
+
     /// <summary>
     /// Auto-incrimenting primary key assigned by the database
     /// </summary>
@@ -81,5 +87,48 @@ namespace RpsPolicyApp.Models
     /// Insured property zip code
     /// </summary>
     public string RiskZipCode { get; set; }
+
+    #endregion
+
+    #region Methods
+    private PolicyDbContext _dbContext;
+
+    public Policy()
+    {
+    }
+
+    public Policy(PolicyDbContext dbContext)
+    {
+      if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
+
+      _dbContext = dbContext;
+    }
+
+    public List<Policy> GetAllPolicies()
+    {
+     return _dbContext.Policies.ToList();
+    }
+
+    /// <summary>
+    /// Create a new entry in the Policy database
+    /// </summary>
+    /// <param name="policy"><see cref="Policy"/></param>
+    /// <returns>Boolean</returns>
+    public async Task<bool> InsertPolicy(Policy policy)
+    {
+      if (policy == null) return false;
+
+      try
+      {
+        _dbContext.Policies.Add(policy);
+        return await _dbContext.SaveChangesAsync(true) > 0;
+      }
+      catch (Exception e)
+      {
+        return false;
+      }
+    }
+
+    #endregion
   }
 }

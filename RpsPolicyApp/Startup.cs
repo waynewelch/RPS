@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -9,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RpsPolicyApp.DbContext;
 using Microsoft.EntityFrameworkCore;
+using RpsPolicyApp.Models;
+using RpsPolicyApp.ResponseObjects;
 using RpsPolicyApp.Services;
 
 namespace RpsPolicyApp
@@ -28,9 +26,11 @@ namespace RpsPolicyApp
     /// <param name="services"><see cref="IServiceCollection"/></param>
     public void ConfigureServices(IServiceCollection services)
     {
-      string connection = @"Server=(localdb)\mssqllocaldb;Database=RpsPolicyDb;Trusted_Connection=True;";
+      const string connection = @"Server=(localdb)\mssqllocaldb;Database=RpsPolicyDb;Trusted_Connection=True;";
       services.AddDbContext<PolicyDbContext>(options => options.UseSqlServer(connection));
-      services.AddScoped<PolicyService>();
+      services.AddTransient<IPolicy, Policy>();
+      services.AddTransient<IPolicyService, PolicyService>();
+      services.AddTransient<IPolicyResponse, PolicyResponse>();
       services.AddMvc();
     }
 

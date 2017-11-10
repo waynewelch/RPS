@@ -1,45 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using RpsPolicyApp.DbContext;
-using RpsPolicyApp.DTOs;
 using RpsPolicyApp.Models;
+using RpsPolicyApp.ResponseObjects;
 
 namespace RpsPolicyApp.Services
 {
   /// <summary>
   /// Business logic for Policy
   /// </summary>
-  public class PolicyService
+  public class PolicyService : IPolicyService
   {
-    private readonly PolicyDbContext _dbContext;
+    private readonly IPolicyResponse _policyResponse;
+    private readonly IPolicy _policy;
 
     /// <summary>
     /// Init
     /// </summary>
-    /// <param name="dbContext"></param>
-    public PolicyService(PolicyDbContext dbContext)
+    /// <param name="policyResponse"></param>
+    /// <param name="policy"></param>
+    public PolicyService(IPolicyResponse policyResponse, IPolicy policy)
     {
-      if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
-      _dbContext = dbContext;
+      if (policyResponse == null) throw new ArgumentNullException(nameof(policyResponse));
+      if (policy == null) throw new ArgumentNullException(nameof(policy));
+
+      _policyResponse = policyResponse;
+      _policy = policy;
     }
 
     /// <summary>
     /// Get only the data needed by the UI from all policies from the database
     /// </summary>
-    /// <returns>List of <see cref="PolicyDto"/></returns>
-    public List<PolicyDto> GetAllPolicies()
+    /// <returns>List of <see cref="PolicyResponse"/></returns>
+    public List<PolicyResponse> GetAllPolicies()
     {
-      return _dbContext.Policies
-        .Select(p => new PolicyDto
-        {
-          PolicyNumber = p.PolicyNumber,
-          PrimaryInsuredName = p.PrimaryInsuredName,
-          PolicyEffectiveDate = p.PolicyEffectiveDate,
-          PolicyExpirationDate = p.PolicyExpirationDate
-        }).AsNoTracking().ToList();
+      return _policyResponse.GetPolicyResponse();
     }
 
     /// <summary>
@@ -53,14 +48,12 @@ namespace RpsPolicyApp.Services
 
       try
       {
-        _dbContext.Policies.Add(policy);
-        await _dbContext.SaveChangesAsync(true);
+        return await _policy.InsertPolicy(policy);
       }
       catch (Exception e)
       {
         return false;
       }
-      return true;
     }
   }
 }

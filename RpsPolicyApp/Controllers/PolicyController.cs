@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RpsPolicyApp.DTOs;
 using RpsPolicyApp.Models;
+using RpsPolicyApp.ResponseObjects;
 using RpsPolicyApp.Services;
 
 namespace RpsPolicyApp.Controllers
@@ -15,13 +15,13 @@ namespace RpsPolicyApp.Controllers
   [Route("api/Policy")]
   public class PolicyController : Controller
   {
-    private readonly PolicyService _policyService;
+    private readonly IPolicyService _policyService;
 
     /// <summary>
     /// Init
     /// </summary>
     /// <param name="policyService"></param>
-    public PolicyController(PolicyService policyService)
+    public PolicyController(IPolicyService policyService)
     {
       _policyService = policyService;
     }
@@ -32,8 +32,8 @@ namespace RpsPolicyApp.Controllers
     /// <returns>List of <see cref="Policy"/></returns>
     /// GET: api/Policy
     [HttpGet]
-    [ProducesResponseType(typeof(IList<PolicyDto>), 200)]
-    public IList<PolicyDto> Get()
+    [ProducesResponseType(typeof(IList<PolicyResponse>), 200)]
+    public IList<PolicyResponse> Get()
     {
       var result = _policyService.GetAllPolicies();
       return result;
