@@ -26,7 +26,7 @@ If the version is returned, these are the minimum recommended versions:
 Prerequisites for running a Core application can be found [here](https://docs.microsoft.com/en-us/dotnet/core/windows-prerequisites?tabs=netcore2x). 
 
 ## Install and setup:
-- Clone project to local directory
+- Clone project from **Develop** branch to local directory
 - Open .sln file with **_Visual Studio 2017 version 15.3 (26730.01) or higher_**
 - Open Visual Studio *Package Manager Console* and run `Update-Database`
 - Build
