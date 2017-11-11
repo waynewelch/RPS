@@ -3,6 +3,12 @@ RpsPolicyApp and the associated UnitTests projects were developed using .Net Cor
 
 Before attempting to install and run, please read this entire document and ensure you have all of the required items.
 
+## Branches
+
+The Master branch is used for deployment to the Azure instace running at [http://rpspolicyapp20171110013243.azurewebsites.net](http://rpspolicyapp20171110013243.azurewebsites.net) and contains the connection string for the Azure database.
+
+The Develop branch is used for local development and debugging and contains the connection string for localdb. 
+
 ## Dependencies
 
 #### Node.js with NPM is required to run a .Net Core Angular 4 application. 
